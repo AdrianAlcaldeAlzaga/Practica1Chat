@@ -1,0 +1,15 @@
+target/
+build/
+dist/
+doc/
+doccheck/
+backup/
+upstream-socket-app/
+.classpath
+.project
+.settings/
+bin/
+*.log
+*.tmp
+*~
+.DS_Store

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ChatDistribuido" default="javadoc" basedir=".">
+    <description>Proyecto de Chat Distribuido</description>
+
+    <target name="javadoc">
+        <mkdir dir="doc"/>
+        <javadoc destdir="doc" sourcepath="src/main/java" packagenames="es.ubu.lsi.*" classpath="target/classes"/>
+    </target>
+</project>
