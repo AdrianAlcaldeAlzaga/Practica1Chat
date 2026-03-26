@@ -9,6 +9,9 @@ import java.util.Scanner;
 
 import es.ubu.lsi.common.ChatMessage;
 
+/**
+ * Text-based TCP chat client implementation.
+ */
 public class ChatClientImpl implements ChatClient {
 
     private static final int DEFAULT_PORT = 1500;
@@ -25,6 +28,13 @@ public class ChatClientImpl implements ChatClient {
     private Socket socket;
     private Scanner scanner;
 
+    /**
+     * Creates a client bound to one server endpoint and one nickname.
+     *
+     * @param server server hostname or IP
+     * @param port server port
+     * @param username client nickname
+     */
     public ChatClientImpl(String server, int port, String username) {
         this.server = server;
         this.port = port;
@@ -107,6 +117,11 @@ public class ChatClientImpl implements ChatClient {
         System.out.println("Pulsa cualquier tecla para continuar...");
     }
 
+    /**
+     * Launches the client process.
+     *
+     * @param args command line arguments: [server] nickname
+     */
     public static void main(String[] args) {
         if (args.length == 1 || args.length == 2) {
             String server = args.length == 2 ? args[0] : DEFAULT_SERVER;
@@ -118,9 +133,17 @@ public class ChatClientImpl implements ChatClient {
         }
     }
 
+    /**
+     * Thread that listens to messages received from server.
+     */
     public class ChatClientListener implements Runnable {
         private final ObjectInputStream input;
 
+        /**
+         * Creates the listener bound to an input stream.
+         *
+         * @param input input stream from server
+         */
         public ChatClientListener(ObjectInputStream input) {
             this.input = input;
         }

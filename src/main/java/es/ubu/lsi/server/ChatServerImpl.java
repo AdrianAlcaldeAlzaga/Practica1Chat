@@ -33,6 +33,11 @@ public class ChatServerImpl implements ChatServer {
     private final List<ServerThreadForClient> clients = new ArrayList<>();
     private final Map<String, Set<String>> blockedUsersByUser = new HashMap<>();
 
+    /**
+     * Creates a chat server instance.
+     *
+     * @param port TCP listening port
+     */
     public ChatServerImpl(int port) {
         this.port = port;
         this.alive = false;
@@ -175,6 +180,11 @@ public class ChatServerImpl implements ChatServer {
         }
     }
 
+    /**
+     * Entry point to launch the server.
+     *
+     * @param args unused
+     */
     public static void main(String[] args) {
         ChatServerImpl server = new ChatServerImpl(DEFAULT_PORT);
         server.startup();
@@ -190,6 +200,15 @@ public class ChatServerImpl implements ChatServer {
         private final ObjectOutputStream output;
         private final ObjectInputStream input;
 
+        /**
+         * Creates a dedicated server thread for one client connection.
+         *
+         * @param id server-side identifier of this client
+         * @param username client nickname
+         * @param socket client socket
+         * @param output output stream to client
+         * @param input input stream from client
+         */
         public ServerThreadForClient(
                 int id,
                 String username,
@@ -270,6 +289,12 @@ public class ChatServerImpl implements ChatServer {
             logSponsored(username + " ha desbaneado a " + userToUnban);
         }
 
+        /**
+         * Sends one message to this client.
+         *
+         * @param message message to send
+         * @return {@code true} if sent successfully
+         */
         public boolean send(ChatMessage message) {
             try {
                 output.writeObject(message);
@@ -280,6 +305,9 @@ public class ChatServerImpl implements ChatServer {
             }
         }
 
+        /**
+         * Closes socket and stream resources associated to this client.
+         */
         public void closeClientConnections() {
             try {
                 input.close();
